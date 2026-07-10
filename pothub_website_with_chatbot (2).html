@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pot Hub — Where Ideas Simmer Into Ventures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35; --primary-dark: #E55A2B; --primary-light: #FF8F6B;
+            --secondary: #0F4C4C; --secondary-light: #1A6B6B; --accent: #2DB5A5;
+            --light: #F5F0E6; --cream: #FAF8F3; --white: #ffffff; --dark: #1a1a1a;
+            --gray: #6B7280; --gray-light: #E5E7EB; --success: #10B981;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --shadow-primary: 0 10px 40px rgba(255,107,53,0.25);
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 20px; --radius-xl: 28px; --radius-full: 9999px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--dark); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+        /* NAVBAR */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; transition: all 0.4s ease; }
+        nav.scrolled { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); box-shadow: var(--shadow); padding: 0.7rem 5%; }
+        nav.scrolled .logo-text .name { color: var(--secondary); }
+        nav.scrolled .logo-text .tag { color: var(--accent); }
+        nav.scrolled .nav-links a { color: var(--dark); }
+        nav.scrolled .mobile-menu { color: var(--secondary); }
+        .logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; z-index: 1001; }
+        .logo-graphic {
+            position: relative;
+            width: 42px;
+            height: 42px;
+        }
+        .logo-graphic .node {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .logo-graphic .node:nth-child(1) { top: 0; left: 0; }
+        .logo-graphic .node:nth-child(2) { top: 0; right: 0; }
+        .logo-graphic .node:nth-child(3) { bottom: 0; left: 0; }
+        .logo-graphic .node:nth-child(4) { bottom: 0; right: 0; }
+        .logo-graphic .node-center {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .logo-graphic .line {
+            position: absolute;
+            background: var(--white);
+            height: 2px;
+            transform-origin: left center;
+        }
+        .logo-graphic .line:nth-child(6) {
+            width: 30px;
+            top: 5px;
+            left: 5px;
+            transform: rotate(45deg);
+        }
+        .logo-graphic .line:nth-child(7) {
+            width: 30px;
+            bottom: 5px;
+            left: 5px;
+            transform: rotate(-45deg);
+        }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-text .name { font-size: 1.4rem; font-weight: 800; color: var(--white); letter-spacing: -0.5px; transition: color 0.3s; }
+        .logo-text .tag { font-size: 0.7rem; color: var(--primary-light); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; border-radius: 2px; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta { background: var(--primary); color: var(--white) !important; padding: 0.6rem 1.5rem; border-radius: var(--radius-full); font-weight: 600; transition: all 0.3s ease; box-shadow: var(--shadow-primary); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(255,107,53,0.35); }
+        .nav-cta::after { display: none !important; }
+        .mobile-menu { display: none; width: 40px; height: 40px; align-items: center; justify-content: center; color: var(--white); font-size: 1.3rem; cursor: pointer; border-radius: var(--radius); transition: all 0.3s; z-index: 1001; }
+        .mobile-menu:hover { background: rgba(255,255,255,0.1); }
+        .mobile-menu.active { color: var(--primary); }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,76,76,0.98); backdrop-filter: blur(20px); flex-direction: column; justify-content: center; gap: 0; z-index: 999; }
+            .nav-links.open { display: flex; }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; padding: 1.2rem; font-size: 1.2rem; color: var(--white); border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .nav-links a:hover { background: rgba(255,107,53,0.1); color: var(--primary); }
+            .nav-cta { margin-top: 1rem; display: inline-block; }
+            .mobile-menu { display: flex; color: var(--white); }
+            nav.scrolled .mobile-menu { color: var(--secondary); }
+        }
+
+        /* HERO */
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--secondary) 0%, #0A3A3A 50%, var(--secondary-light) 100%); display: flex; align-items: center; padding: 8rem 5% 4rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%); border-radius: 50%; animation: float 8s ease-in-out infinite; }
+        .hero::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(45,181,165,0.06) 0%, transparent 70%); border-radius: 50%; animation: float 10s ease-in-out infinite reverse; }
+        @keyframes float { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,-20px); } }
+        
+        .hero-logo-visual {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .hero-logo-big {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-logo-big .big-logo {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-logo-big .big-logo .node {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .hero-logo-big .big-logo .node:nth-child(1) { top: 0; left: 0; }
+        .hero-logo-big .big-logo .node:nth-child(2) { top: 0; right: 0; }
+        .hero-logo-big .big-logo .node:nth-child(3) { bottom: 0; left: 0; }
+        .hero-logo-big .big-logo .node:nth-child(4) { bottom: 0; right: 0; }
+        .hero-logo-big .big-logo .node-center {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-logo-big .big-logo .line {
+            position: absolute;
+            background: var(--white);
+            height: 2px;
+            transform-origin: left center;
+        }
+
+        .hero-logo-big .big-logo .line:nth-child(6) {
+            width: 75px;
+            top: 12px;
+            left: 12px;
+            transform: rotate(45deg);
+        }
+
+        .hero-logo-big .big-logo .line:nth-child(7) {
+            width: 75px;
+            bottom: 12px;
+            left: 12px;
+            transform: rotate(-45deg);
+        }
+
+        .hero-logo-big h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .hero-logo-big .subtitle {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo-visual { display: none; }
+        }
+
+.hero-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 2; }
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
+        .hero-content h1 span { background: linear-gradient(135deg, var(--primary), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: var(--accent); margin-bottom: 1.5rem; }
+        .hero-content p { font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; max-width: 500px; line-height: 1.8; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn { padding: 1rem 2.2rem; border-radius: var(--radius-full); font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); box-shadow: var(--shadow-primary); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255,107,53,0.4); }
+        .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.2); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); }
+        .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+        .hero-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); padding: 2.5rem; width: 100%; max-width: 400px; position: relative; }
+        .hero-card-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .hero-card-avatar { width: 48px; height: 48px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; font-size: 1.2rem; }
+        .hero-card-info h4 { color: var(--white); font-size: 0.95rem; font-weight: 600; }
+        .hero-card-info p { color: var(--accent); font-size: 0.8rem; margin: 0; }
+        .hero-card-body { background: rgba(255,255,255,0.03); border-radius: var(--radius-lg); padding: 1.2rem; margin-bottom: 1rem; }
+        .hero-card-body p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin: 0; line-height: 1.6; }
+        .hero-card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .hero-card-tag { padding: 0.4rem 0.8rem; background: rgba(255,107,53,0.15); color: var(--primary-light); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500; }
+        .floating-badge { position: absolute; background: var(--white); border-radius: var(--radius-lg); padding: 0.8rem 1.2rem; box-shadow: var(--shadow-xl); display: flex; align-items: center; gap: 0.7rem; animation: floatBadge 6s ease-in-out infinite; }
+        .floating-badge.badge-1 { top: -20px; right: -20px; animation-delay: 0s; }
+        .floating-badge.badge-2 { bottom: 20px; left: -30px; animation-delay: 3s; }
+        @keyframes floatBadge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .badge-icon { width: 36px; height: 36px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .badge-icon.green { background: rgba(16,185,129,0.1); color: var(--success); }
+        .badge-icon.orange { background: rgba(255,107,53,0.1); color: var(--primary); }
+        .badge-text h5 { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
+        .badge-text p { font-size: 0.75rem; color: var(--gray); margin: 0; }
+        @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-content p { margin-left: auto; margin-right: auto; } .hero-buttons { justify-content: center; } .hero-visual { display: none; } }
+
+        /* SECTIONS COMMON */
+        section { padding: 6rem 5%; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+        .section-label { display: inline-block; padding: 0.4rem 1rem; background: rgba(255,107,53,0.1); color: var(--primary); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--secondary); margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .section-header p { color: var(--gray); font-size: 1.1rem; line-height: 1.7; }
+
+        /* STATS BAR */
+        .stats-bar { background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); padding: 3rem 5%; position: relative; overflow: hidden; }
+        .stats-bar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .stat-item { text-align: center; padding: 1rem; }
+        .stat-number { font-size: 2.8rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 0.5rem; }
+        .stat-number span { color: var(--primary); }
+        .stat-label { color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 500; }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .stat-number { font-size: 2rem; } }
+
+        /* SERVICES */
+        .services { background: var(--cream); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .service-card { background: var(--white); border-radius: var(--radius-lg); padding: 2.5rem; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; border: 1px solid var(--gray-light); overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: transparent; }
+        .service-icon { width: 60px; height: 60px; background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(45,181,165,0.1)); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--primary); transition: all 0.3s ease; }
+        .service-card:hover .service-icon { background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--white); transform: rotate(5deg) scale(1.1); }
+        .service-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.8rem; }
+        .service-card p { color: var(--gray); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .service-link { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.3s ease; }
+        .service-link:hover { gap: 0.7rem; }
+        .service-tag { display: inline-block; padding: 0.25rem 0.7rem; background: rgba(45,181,165,0.1); color: var(--accent); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
+
+        /* INSTRUCTORS */
+        .instructors { background: var(--white); }
+        .instructors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+        .instructor-card { background: var(--cream); border-radius: var(--radius-xl); padding: 2.5rem; text-align: center; transition: all 0.4s ease; border: 1px solid transparent; position: relative; }
+        .instructor-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: var(--gray-light); }
+        .instructor-avatar-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; }
+        .instructor-avatar { width: 120px; height: 120px; border-radius: var(--radius-full); object-fit: cover; border: 4px solid var(--white); box-shadow: var(--shadow-lg); }
+        .instructor-avatar.initials { background: linear-gradient(135deg, var(--secondary), var(--accent)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; }
+        .instructor-status { position: absolute; bottom: 5px; right: 5px; width: 18px; height: 18px; background: var(--success); border-radius: 50%; border: 3px solid var(--white); }
+        .instructor-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.3rem; }
+        .instructor-role { color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
+        .instructor-bio { color: var(--gray); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .instructor-social { display: flex; justify-content: center; gap: 0.6rem; }
+        .instructor-social a { width: 38px; height: 38px; border-radius: var(--radius-full); background: var(--white); display: flex; align-items: center; justify-content: center; color: var(--secondary); text-decoration: none; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+        .instructor-social a:hover { background: var(--primary); color: var(--white); transform: translateY(-3px); box-shadow: var(--shadow-primary); }
+
+        /* TESTIMONIALS */
+        .testimonials { background: var(--cream); }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+        .testimonial-card { background: var(--white); border-radius: var(--radius-xl); padding: 2.5rem; transition: all 0.4s ease; border: 1px solid var(--gray-light); position: relative; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-xl); }
+        .testimonial-stars { color: #FBBF24; font-size: 0.9rem; margin-bottom: 1rem; }
+        .testimonial-text { font-size: 1rem; color: var(--dark); line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .testimonial-avatar { width: 48px; height: 48px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--secondary), var(--accent)); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+        .testimonial-info h4 { font-size: 1rem; font-weight: 700; color: var(--secondary); }
+        .testimonial-info p { font-size: 0.85rem; color: var(--gray); }
+        .testimonial-quote-icon { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 3rem; color: var(--primary); opacity: 0.1; line-height: 1; }
+
+        /* ABOUT */
+        .about { background: var(--white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .about-content h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--secondary); margin-bottom: 1.5rem; letter-spacing: -0.5px; }
+        .about-content p { color: var(--gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .about-features { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+        .about-feature { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem; background: var(--cream); border-radius: var(--radius); transition: all 0.3s ease; }
+        .about-feature:hover { background: rgba(255,107,53,0.05); transform: translateX(5px); }
+        .about-feature i { color: var(--primary); font-size: 1.1rem; width: 24px; }
+        .about-feature span { font-weight: 600; color: var(--secondary); font-size: 0.95rem; }
+        .about-visual { position: relative; }
+        .about-image { width: 100%; max-width: 500px; aspect-ratio: 1; background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .about-image .about-logo-visual {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-image .about-logo-visual .node-graphic {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            opacity: 0.2;
+        }
+        .about-image .about-logo-visual .node-graphic .node {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .about-image .about-logo-visual .node-graphic .node:nth-child(1) { top: 0; left: 0; }
+        .about-image .about-logo-visual .node-graphic .node:nth-child(2) { top: 0; right: 0; }
+        .about-image .about-logo-visual .node-graphic .node:nth-child(3) { bottom: 0; left: 0; }
+        .about-image .about-logo-visual .node-graphic .node:nth-child(4) { bottom: 0; right: 0; }
+        .about-image .about-logo-visual .node-graphic .node-center {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .about-image .about-logo-visual .node-graphic .line {
+            position: absolute;
+            background: var(--white);
+            height: 2px;
+            transform-origin: left center;
+        }
+        .about-image .about-logo-visual .node-graphic .line:nth-child(6) {
+            width: 112px;
+            top: 18px;
+            left: 18px;
+            transform: rotate(45deg);
+        }
+        .about-image .about-logo-visual .node-graphic .line:nth-child(7) {
+            width: 112px;
+            bottom: 18px;
+            left: 18px;
+            transform: rotate(-45deg);
+        }
+        .about-image::before { content: ''; position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%); border-radius: 50%; }
+        .about-image-inner { text-align: center; color: var(--white); position: relative; z-index: 1; }
+        .about-image-inner .big-icon { width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .about-image-inner h3 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .about-image-inner .tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; opacity: 0.8; }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } .about-visual { order: -1; } .about-image { max-width: 350px; margin: 0 auto; } }
+
+        /* CONTACT */
+        .contact { background: linear-gradient(135deg, var(--secondary) 0%, #0A3A3A 100%); position: relative; overflow: hidden; }
+        .contact::before { content: ''; position: absolute; top: -50%; right: -20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,107,53,0.06) 0%, transparent 70%); border-radius: 50%; }
+        .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .contact-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-xl); padding: 2.5rem; text-align: center; transition: all 0.4s ease; }
+        .contact-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.1); border-color: rgba(255,107,53,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .contact-icon { width: 56px; height: 56px; background: rgba(255,107,53,0.15); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.4rem; color: var(--primary); transition: all 0.3s ease; }
+        .contact-card:hover .contact-icon { background: var(--primary); color: var(--white); transform: scale(1.1) rotate(5deg); }
+        .contact-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.8rem; }
+        .contact-card p, .contact-card a { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.7; text-decoration: none; transition: color 0.3s; }
+        .contact-card a:hover { color: var(--primary); }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+        /* CTA */
+        .cta { background: var(--white); text-align: center; padding: 5rem 5%; }
+        .cta-box { max-width: 700px; margin: 0 auto; background: linear-gradient(135deg, var(--cream), var(--white)); border: 2px solid var(--gray-light); border-radius: var(--radius-xl); padding: 3.5rem 2rem; position: relative; overflow: hidden; }
+        .cta-box::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,107,53,0.03) 0%, transparent 50%); }
+        .cta h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--secondary); margin-bottom: 1rem; position: relative; }
+        .cta p { color: var(--gray); font-size: 1.05rem; margin-bottom: 2rem; position: relative; }
+
+        /* FOOTER */
+        footer { background: #0a2e2e; color: rgba(255,255,255,0.6); padding: 4rem 5% 2rem; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-brand .footer-logo { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+        .footer-logo-graphic {
+            position: relative;
+            width: 36px;
+            height: 36px;
+        }
+        .footer-logo-graphic .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .footer-logo-graphic .node:nth-child(1) { top: 0; left: 0; }
+        .footer-logo-graphic .node:nth-child(2) { top: 0; right: 0; }
+        .footer-logo-graphic .node:nth-child(3) { bottom: 0; left: 0; }
+        .footer-logo-graphic .node:nth-child(4) { bottom: 0; right: 0; }
+        .footer-logo-graphic .node-center {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .footer-logo-graphic .line {
+            position: absolute;
+            background: var(--white);
+            height: 1.5px;
+            transform-origin: left center;
+        }
+        .footer-logo-graphic .line:nth-child(6) {
+            width: 24px;
+            top: 4px;
+            left: 4px;
+            transform: rotate(45deg);
+        }
+        .footer-logo-graphic .line:nth-child(7) {
+            width: 24px;
+            bottom: 4px;
+            left: 4px;
+            transform: rotate(-45deg);
+        }
+        .footer-brand h3 { font-size: 1.3rem; color: var(--white); font-weight: 800; }
+        .footer-tagline { font-family: 'Playfair Display', serif; font-style: italic; color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; max-width: 300px; }
+        .footer-contact { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+        .footer-contact-item { display: flex; align-items: center; gap: 0.7rem; font-size: 0.85rem; }
+        .footer-contact-item i { color: var(--primary); width: 16px; }
+        .footer-contact-item a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s; }
+        .footer-contact-item a:hover { color: var(--primary); }
+        .social-links { display: flex; gap: 0.7rem; }
+        .social-links a { width: 36px; height: 36px; background: rgba(255,255,255,0.05); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--primary); text-decoration: none; transition: all 0.3s ease; font-size: 0.9rem; }
+        .social-links a:hover { background: var(--primary); color: var(--white); transform: translateY(-3px); }
+        .footer-column h4 { color: var(--white); font-size: 1rem; margin-bottom: 1.5rem; font-weight: 700; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 0.7rem; }
+        .footer-column ul li a { color: rgba(255,255,255,0.5); text-decoration: none; transition: all 0.3s ease; font-size: 0.9rem; }
+        .footer-column ul li a:hover { color: var(--primary); padding-left: 5px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; text-align: center; font-size: 0.85rem; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; } .footer-brand .footer-logo { justify-content: center; } .footer-brand p { margin-left: auto; margin-right: auto; } .social-links { justify-content: center; } .footer-contact { align-items: center; } }
+
+        /* ANIMATIONS */
+        .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-up-delay-1 { transition-delay: 0.1s; }
+        .fade-up-delay-2 { transition-delay: 0.2s; }
+        .fade-up-delay-3 { transition-delay: 0.3s; }
+        .fade-up-delay-4 { transition-delay: 0.4s; }
+        .fade-up-delay-5 { transition-delay: 0.5s; }
+
+        /* CHATBOT */
+        .chat-widget { position: fixed; bottom: 25px; right: 25px; z-index: 9999; font-family: 'Inter', sans-serif; }
+        .chat-toggle { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(255,107,53,0.4); transition: all 0.3s ease; position: relative; }
+        .chat-toggle:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 12px 40px rgba(255,107,53,0.5); }
+        .chat-toggle i { color: var(--white); font-size: 1.5rem; transition: transform 0.3s ease; }
+        .chat-toggle.active i { transform: rotate(180deg); }
+        .chat-notification { position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; background: #ff4444; border-radius: 50%; border: 2px solid var(--white); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } }
+        .chat-window { position: absolute; bottom: 75px; right: 0; width: 380px; max-width: calc(100vw - 40px); height: 520px; max-height: calc(100vh - 120px); background: var(--white); border-radius: var(--radius-xl); box-shadow: 0 20px 60px rgba(15,76,76,0.2); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .chat-window.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+        .chat-header { background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+        .chat-header-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--white); border: 2px solid rgba(255,255,255,0.3); }
+        .chat-header-info { flex: 1; }
+        .chat-header-info h4 { color: var(--white); font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+        .chat-header-info p { color: rgba(245,240,230,0.8); font-size: 0.8rem; display: flex; align-items: center; gap: 5px; }
+        .status-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: blink 2s infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .chat-close { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; font-size: 0.9rem; }
+        .chat-close:hover { background: rgba(255,255,255,0.25); transform: rotate(90deg); }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; background: #f8f6f1; }
+        .chat-messages::-webkit-scrollbar { width: 5px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(15,76,76,0.2); border-radius: 10px; }
+        .message { display: flex; gap: 0.7rem; max-width: 85%; animation: messageSlide 0.3s ease; }
+        @keyframes messageSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.bot { align-self: flex-start; }
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .message-avatar { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+        .message.bot .message-avatar { background: linear-gradient(135deg, var(--secondary), var(--accent)); color: var(--white); }
+        .message.user .message-avatar { background: var(--primary); color: var(--white); }
+        .message-bubble { padding: 0.8rem 1.1rem; border-radius: 18px; font-size: 0.9rem; line-height: 1.6; word-wrap: break-word; }
+        .message.bot .message-bubble { background: var(--white); color: var(--dark); border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(15,76,76,0.08); }
+        .message.user .message-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); border-bottom-right-radius: 4px; }
+        .message-time { font-size: 0.7rem; color: #aaa; margin-top: 3px; text-align: right; }
+        .typing-indicator { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.1rem; background: var(--white); border-radius: 18px; border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(15,76,76,0.08); width: fit-content; margin-left: 40px; }
+        .typing-indicator span { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: typingBounce 1.4s infinite ease-in-out both; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+        .quick-replies { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0 1.2rem; margin-bottom: 0.5rem; }
+        .quick-reply { padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid rgba(15,76,76,0.15); background: var(--white); color: var(--secondary); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
+        .quick-reply:hover { background: var(--secondary); color: var(--white); border-color: var(--secondary); transform: translateY(-1px); }
+        .chat-input-area { padding: 1rem 1.2rem; background: var(--white); border-top: 1px solid rgba(15,76,76,0.08); display: flex; gap: 0.7rem; align-items: center; flex-shrink: 0; }
+        .chat-input { flex: 1; padding: 0.7rem 1.2rem; border: 1.5px solid rgba(15,76,76,0.12); border-radius: 25px; font-size: 0.9rem; font-family: 'Inter', sans-serif; outline: none; transition: all 0.3s ease; background: #f8f6f1; }
+        .chat-input:focus { border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px rgba(45,181,165,0.1); }
+        .chat-input::placeholder { color: #aaa; }
+        .chat-send { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; flex-shrink: 0; }
+        .chat-send:hover { transform: scale(1.1); box-shadow: 0 5px 15px rgba(255,107,53,0.3); }
+        .chat-send:active { transform: scale(0.95); }
+        @media (max-width: 480px) { .chat-window { width: calc(100vw - 30px); right: -10px; bottom: 70px; height: 480px; } .chat-widget { bottom: 15px; right: 15px; } }
+    </style>
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230F4C4C' width='100' height='100' rx='20'/%3E%3Ccircle cx='25' cy='25' r='8' fill='%232DB5A5'/%3E%3Ccircle cx='75' cy='25' r='8' fill='%232DB5A5'/%3E%3Ccircle cx='25' cy='75' r='8' fill='%232DB5A5'/%3E%3Ccircle cx='75' cy='75' r='8' fill='%232DB5A5'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23FF6B35'/%3E%3Cline x1='25' y1='25' x2='75' y2='75' stroke='white' stroke-width='3'/%3E%3Cline x1='75' y1='25' x2='25' y2='75' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect fill='%230F4C4C' width='180' height='180' rx='36'/%3E%3Ccircle cx='45' cy='45' r='14' fill='%232DB5A5'/%3E%3Ccircle cx='135' cy='45' r='14' fill='%232DB5A5'/%3E%3Ccircle cx='45' cy='135' r='14' fill='%232DB5A5'/%3E%3Ccircle cx='135' cy='135' r='14' fill='%232DB5A5'/%3E%3Ccircle cx='90' cy='90' r='18' fill='%23FF6B35'/%3E%3Cline x1='45' y1='45' x2='135' y2='135' stroke='white' stroke-width='5'/%3E%3Cline x1='135' y1='45' x2='45' y2='135' stroke='white' stroke-width='5'/%3E%3C/svg%3E">
+    <meta name="theme-color" content="#0F4C4C">
+    <meta name="msapplication-TileColor" content="#0F4C4C">
+
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <div class="logo-graphic">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node-center"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="logo-text">
+                <span class="name">Pot Hub</span>
+                <span class="tag">Startup & Tech Hub</span>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#instructors">Instructors</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="mailto:ifo@pothub.com" class="nav-cta">Enroll Now</a></li>
+        </ul>
+        <div class="mobile-menu" id="mobileMenuBtn">
+            <i class="fas fa-bars" id="menuIcon"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <p class="hero-tagline">"Where ideas simmer into ventures"</p>
+                <h1>Master Tech Skills That <span>Build Careers</span></h1>
+                <p>Your premier destination for cutting-edge technology training. From frontend development to AI agents, we equip you with the skills to thrive in the digital age.</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-primary">Explore Courses <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-logo-visual">
+                    <div class="hero-logo-big">
+                        <div class="big-logo">
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node-center"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <h1>Pot Hub</h1>
+                        <span class="subtitle">startup & tech hub</span>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div class="hero-card-avatar">AI</div>
+                        <div class="hero-card-info">
+                            <h4>AI Agent Course</h4>
+                            <p>Now Enrolling</p>
+                        </div>
+                    </div>
+                    <div class="hero-card-body">
+                        <p>Learn to build autonomous AI agents, LLM integrations, and intelligent automation systems at the frontier of technology.</p>
+                    </div>
+                    <div class="hero-card-tags">
+                        <span class="hero-card-tag">LLMs</span>
+                        <span class="hero-card-tag">LangChain</span>
+                        <span class="hero-card-tag">Automation</span>
+                    </div>
+                    <div class="floating-badge badge-1">
+                        <div class="badge-icon green"><i class="fas fa-check"></i></div>
+                        <div class="badge-text"><h5>500+ Students</h5><p>Trained & Placed</p></div>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <div class="badge-icon orange"><i class="fas fa-star"></i></div>
+                        <div class="badge-text"><h5>95% Success</h5><p>Rate</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item"><div class="stat-number">500<span>+</span></div><div class="stat-label">Students Trained</div></div>
+            <div class="stat-item"><div class="stat-number">2<span>+</span></div><div class="stat-label">Expert Instructors</div></div>
+            <div class="stat-item"><div class="stat-number">95<span>%</span></div><div class="stat-label">Success Rate</div></div>
+            <div class="stat-item"><div class="stat-number">7</div><div class="stat-label">Core Programs</div></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-label">Our Programs</span>
+                <h2>Comprehensive Tech Training</h2>
+                <p>Industry-relevant courses designed to take you from beginner to expert in the most in-demand tech fields.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-up">
+                    <span class="service-tag">12 Weeks</span>
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Frontend Development</h3>
+                    <p>Master HTML, CSS, JavaScript, React, Vue, and modern frontend frameworks. Build responsive, interactive web applications.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card fade-up fade-up-delay-1">
+                    <span class="service-tag">12 Weeks</span>
+                    <div class="service-icon"><i class="fas fa-server"></i></div>
+                    <h3>Backend Development</h3>
+                    <p>Learn Node.js, Python, databases, APIs, and server architecture. Build robust, scalable backend systems.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card fade-up fade-up-delay-2">
+                    <span class="service-tag">10 Weeks</span>
+                    <div class="service-icon"><i class="fab fa-python"></i></div>
+                    <h3>Data Analytics with Python</h3>
+                    <p>Harness the power of Python for data analysis. Learn Pandas, NumPy, Matplotlib, and transform raw data into insights.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card fade-up fade-up-delay-3">
+                    <span class="service-tag">16 Weeks</span>
+                    <div class="service-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Data Science</h3>
+                    <p>Dive deep into machine learning, statistical modeling, and predictive analytics. Build intelligent systems.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card fade-up fade-up-delay-4">
+                    <span class="service-tag">14 Weeks</span>
+                    <div class="service-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI Agent</h3>
+                    <p>Explore the frontier of AI. Learn to build autonomous agents, LLM integrations, and intelligent automation.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card fade-up fade-up-delay-5">
+                    <span class="service-tag">12 Weeks</span>
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile App Development</h3>
+                    <p>Build cross-platform mobile apps with React Native and Flutter. Create stunning iOS and Android applications.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card fade-up">
+                    <span class="service-tag">14 Weeks</span>
+                    <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Cloud Computing</h3>
+                    <p>Master AWS, Azure, and Google Cloud. Learn cloud architecture, Docker, Kubernetes, and DevOps practices.</p>
+                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructors Section -->
+    <section class="instructors" id="instructors">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-label">Our Team</span>
+                <h2>Meet Your Instructors</h2>
+                <p>Learn from industry veterans who have built and shipped products at leading tech companies.</p>
+            </div>
+            <div class="instructors-grid">
+                <div class="instructor-card fade-up">
+                    <div class="instructor-avatar-wrap">
+                        <img src="aji.jpeg" alt="Ajiboye Ismail Kolawole" class="instructor-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="instructor-avatar initials" style="display:none; position:absolute; top:0; left:0;">AI</div>
+                        <div class="instructor-status"></div>
+                    </div>
+                    <h3>Ajiboye Ismail Kolawole</h3>
+                    <p class="instructor-role">Lead Data Scientist & AI Researcher</p>
+                    <p class="instructor-bio">Renowned researcher with expertise in machine learning, deep learning, and neural networks. PhD in Computer Science.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="instructor-card fade-up fade-up-delay-1">
+                    <div class="instructor-avatar-wrap">
+                        <img src="tej.jpeg" alt="Araba Tejumola Akinribigbe" class="instructor-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="instructor-avatar initials" style="display:none; position:absolute; top:0; left:0;">TA</div>
+                        <div class="instructor-status"></div>
+                    </div>
+                    <h3>Araba Tejumola Akinribigbe</h3>
+                    <p class="instructor-role">Full Stack Developer</p>
+                    <p class="instructor-bio">Ex-Meta engineer who led the React team. 8 years building consumer-facing apps used by millions.</p>
+                    <div class="instructor-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-label">Testimonials</span>
+                <h2>Student Success Stories</h2>
+                <p>Hear from our graduates who transformed their careers through Pot Hub training programs.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-up">
+                    <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">The Frontend Development course completely changed my career trajectory. Within three months, I landed my dream job as a React developer at a top tech company.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">OA</div>
+                        <div class="testimonial-info"><h4>Oluwaseun Adeyemi</h4><p>Frontend Developer at TechNova</p></div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up fade-up-delay-1">
+                    <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">I came into the Data Science program with zero coding experience. The instructors were patient, the curriculum was practical, and now I am building ML models for a fintech startup.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CN</div>
+                        <div class="testimonial-info"><h4>Chioma Nwosu</h4><p>Data Scientist at PayStack</p></div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up fade-up-delay-2">
+                    <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">The Mobile App Development training was exceptional. I learned React Native and Flutter, and I have already published two apps on the Play Store and App Store.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">IB</div>
+                        <div class="testimonial-info"><h4>Ibrahim Bello</h4><p>Mobile App Developer, Freelance</p></div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up fade-up-delay-3">
+                    <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">Pot Hub's Backend Development course gave me the confidence to architect complex systems. The hands-on projects and mentorship were invaluable.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">FO</div>
+                        <div class="testimonial-info"><h4>Fatima Okafor</h4><p>Backend Engineer at Andela</p></div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up fade-up-delay-4">
+                    <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p class="testimonial-text">The AI Agent course opened my eyes to the future of technology. I now build intelligent automation tools for enterprise clients. Incredible ROI.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DK</div>
+                        <div class="testimonial-info"><h4>David Koffi</h4><p>AI Solutions Architect</p></div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up fade-up-delay-5">
+                    <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">From data analytics novice to Python expert in just 12 weeks. Pot Hub's structured approach and supportive community made all the difference.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AM</div>
+                        <div class="testimonial-info"><h4>Amina Mohammed</h4><p>Data Analyst at Flutterwave</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-content fade-up">
+                <span class="section-label">Why Choose Us</span>
+                <h2>Practical Learning, Real Results</h2>
+                <p>At Pot Hub, we believe in practical, hands-on learning. Our curriculum is designed by industry experts who understand what employers are looking for. We don't just teach theory we build real projects.</p>
+                <p>Whether you're starting your tech journey or looking to upskill, our structured programs guide you every step of the way. Join a community of learners passionate about technology.</p>
+                <div class="about-features">
+                    <div class="about-feature"><i class="fas fa-check-circle"></i><span>Industry-relevant curriculum</span></div>
+                    <div class="about-feature"><i class="fas fa-check-circle"></i><span>Hands-on project-based learning</span></div>
+                    <div class="about-feature"><i class="fas fa-check-circle"></i><span>Expert mentorship & support</span></div>
+                    <div class="about-feature"><i class="fas fa-check-circle"></i><span>Career guidance & placement</span></div>
+                </div>
+            </div>
+            <div class="about-visual fade-up">
+                <div class="about-image">
+                    <div class="about-image-inner">
+                        <div class="about-logo-visual">
+                            <div class="node-graphic">
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node-center"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div style="position: relative; z-index: 1;">
+                            <h3>Pot Hub</h3>
+                            <p class="tagline">"Where ideas simmer into ventures"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header fade-up" style="margin-bottom: 3rem;">
+                <span class="section-label" style="background: rgba(255,255,255,0.1); color: var(--primary-light);">Contact</span>
+                <h2 style="color: var(--white);">Get In Touch</h2>
+                <p style="color: rgba(255,255,255,0.7);">Ready to start your tech journey? Reach out to us today.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card fade-up">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h3>Email Us</h3>
+                    <p><a href="mailto:info@pothub.com">info@pothub.com</a></p>
+                </div>
+                <div class="contact-card fade-up fade-up-delay-1">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Visit Us</h3>
+                    <p>Iresa-Apa, Ogbomoso<br>Oyo State, Nigeria</p>
+                </div>
+                <div class="contact-card fade-up fade-up-delay-2">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <h3>Call Us</h3>
+                    <p><a href="tel:+2348147785929">+2348147785929</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-box fade-up">
+            <h2>Ready to Start Your Tech Journey?</h2>
+            <p>Join Pot Hub today and transform your career with in-demand tech skills.</p>
+            <a href="mailto:ifo@pothub.com" class="btn btn-primary">Enroll Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-graphic">
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node-center"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <h3>Pot Hub</h3>
+                </div>
+                <p class="footer-tagline">"Where ideas simmer into ventures"</p>
+                <p>Empowering the next generation of tech professionals with world-class training and mentorship.</p>
+                <div class="footer-contact">
+                    <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:ifo@pothub.com">ifo@pothub.com</a></div>
+                    <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Iresa-Apa, Ogbomoso, Oyo State</span></div>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Frontend Dev</a></li>
+                    <li><a href="#">Backend Dev</a></li>
+                    <li><a href="#">Data Analytics</a></li>
+                    <li><a href="#">Data Science</a></li>
+                    <li><a href="#">AI Agent</a></li>
+                    <li><a href="#">Mobile App Dev</a></li>
+                    <li><a href="#">Cloud Computing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pot Hub. All rights reserved. Where ideas simmer into ventures.</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chat-widget">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-avatar"><i class="fas fa-robot"></i></div>
+                <div class="chat-header-info">
+                    <h4>Pot Hub Assistant</h4>
+                    <p><span class="status-dot"></span> Online now</p>
+                </div>
+                <button class="chat-close" id="chatClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="quick-replies" id="quickReplies"></div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." autocomplete="off">
+                <button class="chat-send" id="chatSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="chat-toggle" id="chatToggle">
+            <i class="fas fa-comment-dots"></i>
+            <span class="chat-notification" id="chatNotification"></span>
+        </button>
+    </div>
+
+    <script>
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== MOBILE MENU =====
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            mobileMenuBtn.classList.toggle('active');
+            menuIcon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileMenuBtn.classList.remove('active');
+                menuIcon.className = 'fas fa-bars';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && navLinks.classList.contains('open')) {
+                navLinks.classList.remove('open');
+                mobileMenuBtn.classList.remove('active');
+                menuIcon.className = 'fas fa-bars';
+            }
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ===== CHATBOT =====
+        (function() {
+            const chatToggle = document.getElementById('chatToggle');
+            const chatClose = document.getElementById('chatClose');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const chatSend = document.getElementById('chatSend');
+            const quickReplies = document.getElementById('quickReplies');
+            const chatNotification = document.getElementById('chatNotification');
+            let isOpen = false, hasInteracted = false;
+
+            const knowledgeBase = {
+                greetings: ['hello','hi','hey','good morning','good afternoon','good evening','sup','yo','hola'],
+                services: { keywords: ['service','services','training','course','courses','program','programs','learn','class','classes','what do you offer','what do you teach'], response: 'We offer 7 comprehensive tech training programs:<br><br>🔸 <b>Frontend Development</b> — HTML, CSS, JavaScript, React, Vue<br>🔸 <b>Backend Development</b> — Node.js, Python, APIs, Databases<br>🔸 <b>Data Analytics with Python</b> — Pandas, NumPy, Matplotlib<br>🔸 <b>Data Science</b> — ML, Statistical Modeling, Predictive Analytics<br>🔸 <b>AI Agent</b> — LLMs, Autonomous Agents, Intelligent Automation<br>🔸 <b>Mobile App Development</b> — React Native, Flutter<br>🔸 <b>Cloud Computing</b> — AWS, Azure, Docker, Kubernetes, DevOps<br><br>Which one interests you most?' },
+                frontend: { keywords: ['frontend','front-end','html','css','javascript','react','vue','web design','ui','ux'], response: 'Our <b>Frontend Development Training</b> covers:<br><br>✅ HTML5 & CSS3 (responsive design, Flexbox, Grid)<br>✅ JavaScript (ES6+, DOM manipulation, async programming)<br>✅ React.js (hooks, context, Redux)<br>✅ Vue.js (composition API, Pinia)<br>✅ Modern tooling (Vite, Webpack, Git)<br>✅ Real-world projects & portfolio building<br><br>Perfect for beginners and those looking to level up! Want to enroll?' },
+                backend: { keywords: ['backend','back-end','node','nodejs','python','api','database','server','sql','mongodb'], response: 'Our <b>Backend Development Training</b> includes:<br><br>✅ Node.js & Express.js<br>✅ Python & Django/FastAPI<br>✅ Database design (SQL & NoSQL)<br>✅ RESTful & GraphQL API development<br>✅ Authentication & security best practices<br>✅ Server architecture & deployment<br><br>You will build scalable systems from scratch. Ready to start?' },
+                data_analytics: { keywords: ['data analytics','data analysis','pandas','numpy','matplotlib','python data'], response: 'Our <b>Data Analytics with Python</b> program teaches you to turn raw data into insights:<br><br>✅ Python fundamentals for data work<br>✅ Pandas for data manipulation<br>✅ NumPy for numerical computing<br>✅ Matplotlib & Seaborn for visualization<br>✅ Real-world datasets & case studies<br>✅ Dashboard creation<br><br>Great for aspiring analysts and business professionals!' },
+                data_science: { keywords: ['data science','machine learning','ml','deep learning','neural network','predictive','scikit'], response: 'Our <b>Data Science</b> program dives deep into:<br><br>✅ Statistical modeling & hypothesis testing<br>✅ Machine Learning (supervised & unsupervised)<br>✅ Scikit-learn, TensorFlow, PyTorch<br>✅ Feature engineering & model evaluation<br>✅ End-to-end ML pipelines<br>✅ Capstone project with real data<br><br>Taught by our Lead Data Scientist, Dr. Ajiboye Ismail Kolawole. Interested?' },
+                ai: { keywords: ['ai','artificial intelligence','ai agent','llm','chatbot','automation','openai','gpt','langchain'], response: 'Our <b>AI Agent</b> course is at the cutting edge:<br><br>✅ Large Language Models (LLMs) & prompt engineering<br>✅ Building autonomous AI agents<br>✅ LangChain & vector databases<br>✅ Intelligent automation workflows<br>✅ AI integration into existing apps<br>✅ Ethical AI & responsible deployment<br><br>The future is AI be part of building it! 🚀' },
+                mobile: { keywords: ['mobile','app','android','ios','react native','flutter','phone'], response: 'Our <b>Mobile App Development</b> training covers:<br><br>✅ React Native (cross-platform iOS & Android)<br>✅ Flutter & Dart<br>✅ Mobile UI/UX patterns<br>✅ State management & navigation<br>✅ API integration & offline storage<br>✅ App Store & Play Store deployment<br><br>Build once, run everywhere. Start your mobile dev journey!' },
+                cloud: { keywords: ['cloud','aws','azure','gcp','devops','docker','kubernetes','serverless','ci/cd'], response: 'Our <b>Cloud Computing</b> program prepares you for the cloud era:<br><br>✅ AWS, Azure & Google Cloud fundamentals<br>✅ Serverless computing (Lambda, Cloud Functions)<br>✅ Docker containerization<br>✅ Kubernetes orchestration<br>✅ CI/CD pipelines (GitHub Actions, Jenkins)<br>✅ Infrastructure as Code (Terraform)<br><br>Cloud skills are in massive demand get certified with us!' },
+                instructors: { keywords: ['instructor','instructors','teacher','mentor','trainer','who teaches','faculty','staff'], response: 'Meet our expert instructors:<br><br>👨‍🏫 <b>Dr. Ajiboye Ismail Kolawole</b><br>   Lead Data Scientist & AI Researcher<br>   PhD in Computer Science | ML & Deep Learning Expert<br><br>👨‍💻 <b>Araba Tejumola Akinribigbe</b><br>   Full Stack Developer<br>   Former Meta Engineer | React Specialist<br><br>Both are passionate about mentoring and have trained 500+ students with a 95% success rate!' },
+                pricing: { keywords: ['price','pricing','cost','fee','fees','how much','payment','discount','scholarship','affordable','cheap'], response: 'We believe quality tech education should be accessible! 💰<br><br>📋 <b>Course fees vary by program</b> — contact us for the latest pricing.<br><br>🎓 <b>Flexible payment plans</b> available<br>🎁 <b>Early bird discounts</b> for early registrations<br>🤝 <b>Group discounts</b> for 3+ students<br>💳 <b>Installment plans</b> to spread the cost<br><br>Email us at <a href="mailto:info@pothub.com">info@pothub.com</a> or call <a href="tel:+2348147785929">+2348147785929</a> for a detailed fee structure.' },
+                contact: { keywords: ['contact','reach','email','phone','call','location','address','visit','where are you','find you'], response: 'Here is how to reach us:<br><br>📧 <b>Email:</b> <a href="mailto:ifo@pothub.com">ifo@pothub.com</a><br>📞 <b>Phone:</b> <a href="tel:+2348000000000">+234 800 000 0000</a><br>📍 <b>Address:</b> Iresa-Apa, Ogbomoso, Oyo State, Nigeria<br><br>We are open Monday-Saturday, 9AM-6PM. Drop by or send us a message anytime!' },
+                enrollment: { keywords: ['enroll','enrollment','register','registration','sign up','join','apply','admission','how to start','get started'], response: 'Ready to join Pot Hub? 🎉<br><br><b>Enrollment is easy:</b><br><br>1️⃣ Choose your preferred course<br>2️⃣ Send an email to <a href="mailto:ifo@pothub.com">ifo@pothub.com</a><br>3️⃣ Or call <a href="tel:+2348000000000">+234 800 000 0000</a><br>4️⃣ We will guide you through the process<br><br><b>Next cohort starts soon</b> secure your spot today!' },
+                about: { keywords: ['about','who are you','what is pot hub','pothub','story','mission','vision','history'], response: 'Pot Hub is a <b>Startup & Tech Hub</b> based in Ogbomoso, Oyo State, Nigeria.<br><br>🎯 <b>Mission:</b> Empower the next generation of tech professionals with world-class, hands-on training.<br><br>📊 <b>By the numbers:</b><br>   • 500+ students trained<br>   • 2+ expert instructors<br>   • 95% success rate<br>   • 7 core tech programs<br><br>💡 <b>Our motto:</b> "Where ideas simmer into ventures"<br><br>We do not just teach theory we build real projects that prepare you for the industry.' },
+                testimonials: { keywords: ['testimonial','review','feedback','student','graduate','success story','experience'], response: 'Our students love Pot Hub! ⭐⭐⭐⭐⭐<br><br>💬 <b>Oluwaseun Adeyemi</b>"Landed my dream job as a React developer within 3 months!"<br><br>💬 <b>Chioma Nwosu</b> "From zero coding to building ML models for a fintech startup."<br><br>💬 <b>Ibrahim Bello</b> "Published two apps on Play Store & App Store after the mobile course."<br><br>💬 <b>David Koffi</b> "The AI Agent course opened my eyes to the future of technology."<br><br>Scroll down to read more testimonials on our page!' },
+                duration: { keywords: ['duration','how long','weeks','months','time','period','schedule','timeline'], response: 'Course durations vary by program:<br><br>⏱️ <b>Frontend Development:</b> 12 weeks<br>⏱️ <b>Backend Development:</b> 12 weeks<br>⏱️ <b>Data Analytics:</b> 10 weeks<br>⏱️ <b>Data Science:</b> 16 weeks<br>⏱️ <b>AI Agent:</b> 14 weeks<br>⏱️ <b>Mobile App Dev:</b> 12 weeks<br>⏱️ <b>Cloud Computing:</b> 14 weeks<br><br>Classes are typically <b>3-4 sessions per week</b> with flexible evening and weekend options. Contact us for the current schedule!' },
+                certificate: { keywords: ['certificate','certification','certified','diploma','credential','accredited'], response: 'Yes! All our programs include a <b>Pot Hub Certificate of Completion</b> upon finishing the coursework and capstone project. 🏆<br><br>Our curriculum is designed to also prepare you for industry certifications like:<br>• AWS Cloud Practitioner<br>• Google Data Analytics<br>• Meta Frontend Developer<br><br>Your certificate + portfolio of projects = job-ready profile!' },
+                online: { keywords: ['online','remote','virtual','zoom','from home','distance','virtual class'], response: 'Yes! We offer <b>both in-person and online</b> training options. 💻<br><br>🖥️ <b>Online:</b> Live virtual classes via Zoom with screen sharing, interactive coding sessions, and recorded replays.<br><br>🏢 <b>In-Person:</b> Hands-on training at our hub in Iresa-Apa, Ogbomoso.<br><br>You can choose the format that works best for you. Hybrid options are also available!' },
+                beginner: { keywords: ['beginner','no experience','newbie','start from scratch','zero','never coded','foundation'], response: 'Absolutely! 🌱 Many of our students start with zero coding experience.<br><br>Our <b>beginner-friendly</b> programs include:<br>• Step-by-step fundamentals<br>• No prior knowledge required<br>• Patient, supportive instructors<br>• Peer study groups<br>• Extra practice sessions<br><br>Chioma Nwosu came in with zero experience and is now a Data Scientist at PayStack. You can do it too!' },
+                bye: { keywords: ['bye','goodbye','see you','later','thanks','thank you','appreciate','ok','okay'], response: 'You are welcome! 😊 Feel free to come back anytime if you have more questions.<br><br>Ready to start your tech journey? Email us at <a href="mailto:ifo@pothub.com">ifo@pothub.com</a> or click "Enroll Now" on the page.<br><br>Have a great day! 🚀' }
+            };
+
+            const defaultResponse = 'I am not sure I understood that. Here are some things I can help you with:<br><br>• Our training programs & courses<br>• Pricing & enrollment<br>• Instructor details<br>• Contact information<br>• Course duration & schedule<br>• Online vs in-person options<br><br>Or just ask me anything about Pot Hub!';
+
+            const quickReplyOptions = ['Our Services','Pricing','How to Enroll','Contact Us','Course Duration','About Pot Hub'];
+
+            function getCurrentTime() {
+                return new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            }
+
+            function addMessage(text, isUser = false) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.textContent = isUser ? 'You' : 'PH';
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+                bubble.innerHTML = text;
+                const time = document.createElement('div');
+                time.className = 'message-time';
+                time.textContent = getCurrentTime();
+                const bubbleWrapper = document.createElement('div');
+                bubbleWrapper.appendChild(bubble);
+                bubbleWrapper.appendChild(time);
+                msgDiv.appendChild(avatar);
+                msgDiv.appendChild(bubbleWrapper);
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function showTyping() {
+                const typing = document.createElement('div');
+                typing.className = 'typing-indicator';
+                typing.id = 'typingIndicator';
+                typing.innerHTML = '<span></span><span></span><span></span>';
+                chatMessages.appendChild(typing);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function removeTyping() {
+                const typing = document.getElementById('typingIndicator');
+                if (typing) typing.remove();
+            }
+
+            function getResponse(input) {
+                const lower = input.toLowerCase().trim();
+                for (const key in knowledgeBase) {
+                    if (key === 'greetings') continue;
+                    const entry = knowledgeBase[key];
+                    if (entry.keywords && entry.keywords.some(kw => lower.includes(kw))) return entry.response;
+                }
+                if (knowledgeBase.greetings.some(g => lower.includes(g))) {
+                    const h = new Date().getHours();
+                    let greeting = 'Hello';
+                    if (h < 12) greeting = 'Good morning';
+                    else if (h < 17) greeting = 'Good afternoon';
+                    else greeting = 'Good evening';
+                    return `${greeting}! 👋 Welcome to <b>Pot Hub</b> — where ideas simmer into ventures!<br><br>I am your virtual assistant. I can help you with:<br>• Info about our courses & services<br>• Pricing & enrollment details<br>• Instructor backgrounds<br>• Contact information<br>• Anything else about Pot Hub!<br><br>What would you like to know?`;
+                }
+                return defaultResponse;
+            }
+
+            function renderQuickReplies() {
+                quickReplies.innerHTML = '';
+                quickReplyOptions.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quick-reply';
+                    btn.textContent = option;
+                    btn.addEventListener('click', () => handleMessage(option));
+                    quickReplies.appendChild(btn);
+                });
+            }
+
+            function handleMessage(text) {
+                if (!text.trim()) return;
+                addMessage(text, true);
+                chatInput.value = '';
+                quickReplies.innerHTML = '';
+                showTyping();
+                setTimeout(() => {
+                    removeTyping();
+                    addMessage(getResponse(text));
+                    setTimeout(renderQuickReplies, 300);
+                }, 1000 + Math.random() * 800);
+            }
+
+            function toggleChat() {
+                isOpen = !isOpen;
+                chatWindow.classList.toggle('open', isOpen);
+                chatToggle.classList.toggle('active', isOpen);
+                chatToggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-comment-dots';
+                if (isOpen && !hasInteracted) {
+                    hasInteracted = true;
+                    chatNotification.style.display = 'none';
+                    setTimeout(() => {
+                        showTyping();
+                        setTimeout(() => {
+                            removeTyping();
+                            const h = new Date().getHours();
+                            let greeting = 'Hello';
+                            if (h < 12) greeting = 'Good morning';
+                            else if (h < 17) greeting = 'Good afternoon';
+                            else greeting = 'Good evening';
+                            addMessage(`${greeting}! 👋 Welcome to <b>Pot Hub</b>. I am here to help you explore our tech training programs, pricing, enrollment, and more. What can I assist you with today?`);
+                            renderQuickReplies();
+                        }, 1200);
+                    }, 400);
+                }
+            }
+
+            chatToggle.addEventListener('click', toggleChat);
+            chatClose.addEventListener('click', toggleChat);
+            chatSend.addEventListener('click', () => handleMessage(chatInput.value));
+            chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleMessage(chatInput.value); });
+            setTimeout(() => { if (!hasInteracted) chatNotification.style.display = 'block'; }, 8000);
+        })();
+    </script>
+</body>
+</html>
