@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://pothub.tech/sitemap.xml
+
+# Host preference
+Host: https://pothub.tech
+
+User-agent: *
+Allow: /
+Sitemap: https://pothub.tech/sitemap.xml
